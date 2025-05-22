@@ -1,9 +1,9 @@
 {
-  "name": "@wamra/gantt-task-react",
+  "name": "@tamagutchi/gantt-task-react",
   "version": "0.6.17",
-  "description": "Interactive Gantt Chart for React with TypeScript",
-  "author": "WAMRA <wamra@users.noreply.github.com>",
-  "homepage": "https://github.com/wamra/gantt-task-react/blob/main/README.md#gantt-task-react",
+  "description": "Gantt Chart",
+  "author": "Stefan Djordjevic <stefan.djordjevic@buildfast.com>",
+  "homepage": "https://github.com/tamagutchi/gantt-task-react/blob/main/README.md#gantt-task-react",
   "license": "MIT",
   "contributors": [
     {
@@ -17,7 +17,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wamra/gantt-task-react.git"
+    "url": "git+https://github.com/tamagutchi/gantt-task-react.git"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

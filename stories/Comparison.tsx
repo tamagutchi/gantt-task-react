@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 
-import { Gantt, OnChangeTasks, Task, TaskOrEmpty } from "../src";
+import { Gantt, OnChangeTasks, Task, TaskOrEmpty, ViewMode } from "../src";
 
 import { initTasks, onAddTask, onEditTask } from "./helper";
 

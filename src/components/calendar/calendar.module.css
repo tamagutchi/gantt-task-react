@@ -1,12 +1,14 @@
-.calendarMain{    
-  border-top: #e6e4e4 3px solid;
-  border-bottom: #e6e4e4 3px solid;
+.calendarMain {
+  border-top: #ece7e2 1px solid;
+  border-bottom: #ece7e2 1px solid;
+  border-left: 2px solid #ece7e2;
   box-sizing: content-box;
 }
 
 .calendarBottomText {
   text-anchor: middle;
-  fill: #333;
+  fill: #222;
+  font-weight: 900;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -21,7 +23,8 @@
 
 .calendarTopText {
   text-anchor: middle;
-  fill: #555;
+  fill: #717680;
+  font-weight: 900;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;

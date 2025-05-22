@@ -1,7 +1,6 @@
 .ganttTableRoot {
-  display:flex;
+  display: flex;
   position: relative;
-  border-left: #e6e4e4 1px solid;
   overflow: hidden;
 }
 
@@ -48,7 +47,7 @@
 }
 
 .taskListResizer:hover {
-  background-color: grey;
+  background-color: #ece7e2;
 }
 
 .taskListResizer::before {
@@ -58,7 +57,6 @@
   left: 4px;
   height: 100%;
   width: 2px;
-  background-color: #e5e5e5;
 }
 
 .taskListContent {

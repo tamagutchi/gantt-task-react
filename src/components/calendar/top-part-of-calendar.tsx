@@ -34,12 +34,7 @@ export const TopPartOfCalendar: React.FC<TopPartOfCalendarProps> = ({
       />
 
       {value !== null && (
-        <text
-          y={yText}
-          x={xText}
-          className={styles.calendarTopText}
-          style={{ fill: colors.barLabelColor }}
-        >
+        <text y={yText} x={xText} className={styles.calendarTopText}>
           {value}
         </text>
       )}

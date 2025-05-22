@@ -1936,8 +1936,10 @@ export const Gantt: React.FC<GanttProps> = ({
       data-testid={`gantt-main`}
       style={{
         gridTemplateColumns: `${displayTable ? "max-content" : ""} auto`,
-        background: colors.evenTaskBackgroundColor,
+        background: "#fff",
         color: colors.barLabelColor,
+        border: "1px solid #D3C7BA",
+        borderRadius: 12,
       }}
     >
       {/* {columns.length > 0 && <TaskList {...tableProps} />} */}
