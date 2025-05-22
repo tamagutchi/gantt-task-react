@@ -21,7 +21,6 @@ export const TopPartOfCalendar: React.FC<TopPartOfCalendarProps> = ({
   y2Line,
   xText,
   yText,
-  colors,
 }) => {
   return (
     <g className="calendarTop">
