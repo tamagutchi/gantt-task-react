@@ -1,9 +1,6 @@
-import React, {
-  memo,
-  useMemo,
-} from 'react';
+import React, { memo, useMemo } from "react";
 
-import { TaskOutOfParentWarnings } from '../../types/public-types';
+import { TaskOutOfParentWarnings } from "../../types/public-types";
 
 type TaskWarningProps = {
   rtl: boolean;
@@ -26,25 +23,19 @@ const TaskWarningInner: React.FC<TaskWarningProps> = ({
   x1,
   x2,
 }) => {
-  const isError = useMemo(
-    () => {
-      if (hasDependencyWarning) {
-        return true;
-      }
+  const isError = useMemo(() => {
+    if (hasDependencyWarning) {
+      return true;
+    }
 
-      if (outOfParentWarnings) {
-        const {
-          start,
-          end,
-        } = outOfParentWarnings;
-  
-        return Boolean(start?.isOutside || end?.isOutside);
-      }
+    if (outOfParentWarnings) {
+      const { start, end } = outOfParentWarnings;
 
-      return false;
-    },
-    [outOfParentWarnings, hasDependencyWarning],
-  );
+      return Boolean(start?.isOutside || end?.isOutside);
+    }
+
+    return false;
+  }, [outOfParentWarnings, hasDependencyWarning]);
 
   const centerX = useMemo(() => {
     if (rtl) {
@@ -52,12 +43,7 @@ const TaskWarningInner: React.FC<TaskWarningProps> = ({
     }
 
     return x2 + taskWarningOffset;
-  }, [
-    rtl,
-    taskWarningOffset,
-    x1,
-    x2,
-  ]);
+  }, [rtl, taskWarningOffset, x1, x2]);
 
   return (
     <g>

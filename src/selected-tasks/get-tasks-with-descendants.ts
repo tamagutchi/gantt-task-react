@@ -1,12 +1,9 @@
-import type {
-  ChildByLevelMap,
-  TaskOrEmpty,
-} from "../types/public-types";
+import type { ChildByLevelMap, TaskOrEmpty } from "../types/public-types";
 
 const fillDescendants = (
   res: TaskOrEmpty[],
   task: TaskOrEmpty,
-  childAtLevelMap: Map<string, TaskOrEmpty[]>,
+  childAtLevelMap: Map<string, TaskOrEmpty[]>
 ) => {
   res.push(task);
 
@@ -16,21 +13,19 @@ const fillDescendants = (
     return;
   }
 
-  childs.forEach((childTask) => {
+  childs.forEach(childTask => {
     fillDescendants(res, childTask, childAtLevelMap);
   });
 };
 
 export const getTasksWithDescendants = (
   parentTasks: TaskOrEmpty[],
-  childByLevelMap: ChildByLevelMap,
+  childByLevelMap: ChildByLevelMap
 ) => {
   const res: TaskOrEmpty[] = [];
 
-  parentTasks.forEach((task) => {
-    const {
-      comparisonLevel = 1,
-    } = task;
+  parentTasks.forEach(task => {
+    const { comparisonLevel = 1 } = task;
 
     const childAtLevelMap = childByLevelMap.get(comparisonLevel);
 

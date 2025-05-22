@@ -1,15 +1,12 @@
-import React, {
-  memo,
-  useMemo,
-} from 'react';
+import React, { memo, useMemo } from "react";
 
-import { generateTrianglePoints } from '../../helpers/generate-triangle-points';
+import { generateTrianglePoints } from "../../helpers/generate-triangle-points";
 
-import styles from './fix-dependency-position.module.css';
+import styles from "./fix-dependency-position.module.css";
 
 export const fixPositionContainerClass = styles.hoverVisibleWrapper;
 
-type FixDependencyPositionProps = {   
+type FixDependencyPositionProps = {
   color: string;
   dependencyFixIndent: number;
   handleFixPosition: () => void;
@@ -30,10 +27,7 @@ const FixDependencyPositionInner: React.FC<FixDependencyPositionProps> = ({
   x,
   y,
 }) => {
-  const halfHeight = useMemo(
-    () => Math.round(height / 2),
-    [height],
-  );
+  const halfHeight = useMemo(() => Math.round(height / 2), [height]);
 
   const d = useMemo(() => {
     return `M ${x} ${y}
@@ -41,29 +35,17 @@ const FixDependencyPositionInner: React.FC<FixDependencyPositionProps> = ({
       M ${x} ${y + halfHeight}
       h ${isLeft ? -width : width}
     `;
-  }, [
-    x,
-    y,
-    width,
-    height,
-    halfHeight,
-    isLeft,
-  ]);
+  }, [x, y, width, height, halfHeight, isLeft]);
 
   const trianglePoints = useMemo(
-    () => generateTrianglePoints(
-      isLeft ? x - width : x + width,
-      y + halfHeight,
-      5,
-      isLeft,
-    ),
-    [
-      x,
-      y,
-      width,
-      halfHeight,
-      isLeft,
-    ],
+    () =>
+      generateTrianglePoints(
+        isLeft ? x - width : x + width,
+        y + halfHeight,
+        5,
+        isLeft
+      ),
+    [x, y, width, halfHeight, isLeft]
   );
 
   return (
@@ -73,10 +55,7 @@ const FixDependencyPositionInner: React.FC<FixDependencyPositionProps> = ({
       stroke={color}
       onMouseDown={handleFixPosition}
     >
-      <path
-        d={d}
-        className={styles.mainPath}
-      />
+      <path d={d} className={styles.mainPath} />
 
       <rect
         x={isLeft ? x - width - dependencyFixIndent : x}

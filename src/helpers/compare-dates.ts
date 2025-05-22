@@ -1,7 +1,4 @@
-export const compareDates = (
-  date1: Date,
-  date2: Date,
-): number => {
+export const compareDates = (date1: Date, date2: Date): number => {
   const time1 = date1.getTime();
   const time2 = date2.getTime();
 

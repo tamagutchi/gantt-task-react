@@ -21,7 +21,7 @@ const getExpanderSymbol = (
   return icons?.renderOpenedIcon ? icons.renderOpenedIcon(task) : "⊟";
 };
 
-export const TitleColumn: React.FC<ColumnProps> = (props) => {
+export const TitleColumn: React.FC<ColumnProps> = props => {
   const {
     data: {
       colors,
@@ -34,7 +34,7 @@ export const TitleColumn: React.FC<ColumnProps> = (props) => {
       indexStr,
       task,
       onExpanderClick,
-    }
+    },
   } = props;
   const { name } = task;
 
@@ -68,9 +68,12 @@ export const TitleColumn: React.FC<ColumnProps> = (props) => {
       >
         {expanderSymbol}
       </div>
-      <div style={{
-        color: colors.barLabelColor
-      }} className={styles.taskName}>
+      <div
+        style={{
+          color: colors.barLabelColor,
+        }}
+        className={styles.taskName}
+      >
         {isShowTaskNumbers && <b>{indexStr} </b>}
 
         {name}

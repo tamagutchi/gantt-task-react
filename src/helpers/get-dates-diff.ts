@@ -5,7 +5,7 @@ import differenceInWeeks from "date-fns/differenceInWeeks";
 import differenceInYears from "date-fns/differenceInYears";
 import differenceInQuarters from "date-fns/differenceInQuarters";
 
-import {ViewMode} from "../types/public-types";
+import { ViewMode } from "../types/public-types";
 
 export const getDatesDiff = (
   dateFrom: Date,

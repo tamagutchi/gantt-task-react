@@ -4,9 +4,9 @@ import { ColumnProps } from "../../../types/public-types";
 
 import styles from "./add-column.module.css";
 
-export const AddColumn: React.FC<ColumnProps> = (props) => {
+export const AddColumn: React.FC<ColumnProps> = props => {
   const {
-    data: { handleAddTask, icons, colors, task }
+    data: { handleAddTask, icons, colors, task },
   } = props;
   const onClick = useCallback(() => {
     if (task.type === "empty") {
@@ -21,9 +21,14 @@ export const AddColumn: React.FC<ColumnProps> = (props) => {
   }
 
   return (
-    <button type="button" onClick={onClick} style={{
-      "color": colors.barLabelColor
-    }} className={styles.button}>
+    <button
+      type="button"
+      onClick={onClick}
+      style={{
+        color: colors.barLabelColor,
+      }}
+      className={styles.button}
+    >
       {icons?.renderAddIcon ? icons.renderAddIcon(task) : "+"}
     </button>
   );

@@ -2,14 +2,12 @@ import { Task, TaskToHasDependencyWarningMap } from "../types/public-types";
 
 export const checkTaskHasDependencyWarning = (
   task: Task,
-  taskToHasDependencyWarningMap: TaskToHasDependencyWarningMap,
+  taskToHasDependencyWarningMap: TaskToHasDependencyWarningMap
 ) => {
-  const {
-    id,
-    comparisonLevel = 1,
-  } = task;
+  const { id, comparisonLevel = 1 } = task;
 
-  const hasWarningsAtLevelSet = taskToHasDependencyWarningMap.get(comparisonLevel);
+  const hasWarningsAtLevelSet =
+    taskToHasDependencyWarningMap.get(comparisonLevel);
 
   if (!hasWarningsAtLevelSet) {
     return false;

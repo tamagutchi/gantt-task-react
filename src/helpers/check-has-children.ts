@@ -2,12 +2,9 @@ import { ChildByLevelMap, TaskOrEmpty } from "../types/public-types";
 
 export const checkHasChildren = (
   task: TaskOrEmpty,
-  childTasksMap: ChildByLevelMap,
+  childTasksMap: ChildByLevelMap
 ) => {
-  const {
-    id,
-    comparisonLevel = 1,
-  } = task;
+  const { id, comparisonLevel = 1 } = task;
 
   const childIdsByLevel = childTasksMap.get(comparisonLevel);
 

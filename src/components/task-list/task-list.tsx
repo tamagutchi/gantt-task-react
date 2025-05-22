@@ -1,4 +1,9 @@
-import type { ComponentType, MouseEvent, RefObject, SyntheticEvent } from "react";
+import type {
+  ComponentType,
+  MouseEvent,
+  RefObject,
+  SyntheticEvent,
+} from "react";
 import React, { memo } from "react";
 
 import {
@@ -14,7 +19,7 @@ import {
   Task,
   TaskListHeaderProps,
   TaskListTableProps,
-  TaskOrEmpty
+  TaskOrEmpty,
 } from "../../types/public-types";
 
 import { useOptimizedList } from "../../helpers/use-optimized-list";
@@ -70,55 +75,54 @@ export type TaskListProps = {
   ) => void;
 } & TaskListHeaderActionsProps;
 
-const TaskListInner: React.FC<TaskListProps & TaskListHeaderActionsProps> = (
-  {
-    canMoveTasks,
-    canResizeColumns,
-    childTasksMap,
-    colors,
-    columnsProp,
-    cutIdsMirror,
-    dateSetup,
-    dependencyMap,
-    distances,
-    fontFamily,
-    fontSize,
-    fullRowHeight,
-    ganttFullHeight,
-    getTaskCurrentState,
-    handleAddTask,
-    handleDeleteTasks,
-    handleEditTask,
-    handleMoveTaskBefore,
-    handleMoveTaskAfter,
-    handleMoveTasksInside,
-    handleOpenContextMenu,
-    icons = undefined,
-    isShowTaskNumbers,
-    mapTaskToNestedIndex,
-    onExpanderClick,
-    onClick,
-    scrollToTask,
-    selectTaskOnMouseDown,
-    selectedIdsMirror,
-    taskListContentRef,
-    taskListRef,
-    tasks,
-    TaskListHeader,
-    TaskListTable,
-    onResizeColumn,
-    onScrollTableListContentVertically,
-    onCollapseAll,
-    onExpandFirstLevel,
-    onExpandAll
-  }) => {
+const TaskListInner: React.FC<TaskListProps & TaskListHeaderActionsProps> = ({
+  canMoveTasks,
+  canResizeColumns,
+  childTasksMap,
+  colors,
+  columnsProp,
+  cutIdsMirror,
+  dateSetup,
+  dependencyMap,
+  distances,
+  fontFamily,
+  fontSize,
+  fullRowHeight,
+  ganttFullHeight,
+  getTaskCurrentState,
+  handleAddTask,
+  handleDeleteTasks,
+  handleEditTask,
+  handleMoveTaskBefore,
+  handleMoveTaskAfter,
+  handleMoveTasksInside,
+  handleOpenContextMenu,
+  icons = undefined,
+  isShowTaskNumbers,
+  mapTaskToNestedIndex,
+  onExpanderClick,
+  onClick,
+  scrollToTask,
+  selectTaskOnMouseDown,
+  selectedIdsMirror,
+  taskListContentRef,
+  taskListRef,
+  tasks,
+  TaskListHeader,
+  TaskListTable,
+  onResizeColumn,
+  onScrollTableListContentVertically,
+  onCollapseAll,
+  onExpandFirstLevel,
+  onExpandAll,
+}) => {
   // Manage the column and list table resizing
   const [
     columns,
     taskListWidth,
     tableWidth,
     onTableResizeStart,
-    onColumnResizeStart
+    onColumnResizeStart,
   ] = useTableListResize(columnsProp, distances, onResizeColumn);
 
   const renderedIndexes = useOptimizedList(
@@ -127,13 +131,12 @@ const TaskListInner: React.FC<TaskListProps & TaskListHeaderActionsProps> = (
     fullRowHeight
   );
 
-
   return (
     <div className={styles.ganttTableRoot} ref={taskListRef}>
       <div
         className={styles.ganttTableWrapper}
         style={{
-          width: tableWidth
+          width: tableWidth,
         }}
       >
         <TaskListHeader
@@ -162,10 +165,9 @@ const TaskListInner: React.FC<TaskListProps & TaskListHeaderActionsProps> = (
               ),
               backgroundSize: `100% ${fullRowHeight * 2}px`,
               backgroundImage: `linear-gradient(to bottom, transparent ${fullRowHeight}px, #f5f5f5 ${fullRowHeight}px)`,
-              overflow: "hidden"
+              overflow: "hidden",
             }}
           >
-
             <TaskListTable
               canMoveTasks={canMoveTasks}
               childTasksMap={childTasksMap}

@@ -101,7 +101,7 @@ export const defaultRoundEndDate = (date: Date, viewMode: ViewMode) => {
       return subMonths(end, 1);
     }
 
-    case ViewMode.QuarterYear:{
+    case ViewMode.QuarterYear: {
       const end = endOfQuarter(date);
       const diff = differenceInMonths(end, date);
 

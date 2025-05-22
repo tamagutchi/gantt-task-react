@@ -1,7 +1,5 @@
 import React from "react";
-import type {
-  ReactNode,
-} from "react";
+import type { ReactNode } from "react";
 
 import styles from "./calendar.module.css";
 import { ColorStyles } from "../../types/public-types";
@@ -23,7 +21,7 @@ export const TopPartOfCalendar: React.FC<TopPartOfCalendarProps> = ({
   y2Line,
   xText,
   yText,
-  colors
+  colors,
 }) => {
   return (
     <g className="calendarTop">

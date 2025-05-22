@@ -12,7 +12,8 @@ import {
   Task,
   Distances,
   DateExtremity,
-  TaskDependencyContextualPaletteProps, ColorStyles
+  TaskDependencyContextualPaletteProps,
+  ColorStyles,
 } from "../../types/public-types";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 
@@ -31,10 +32,10 @@ export type TaskGanttProps = {
   onScrollGanttContentVertically: (
     event: SyntheticEvent<HTMLDivElement>
   ) => void;
-  colors: Partial<ColorStyles>
+  colors: Partial<ColorStyles>;
 };
 
-const TaskGanttInner: React.FC<TaskGanttProps> = (props) => {
+const TaskGanttInner: React.FC<TaskGanttProps> = props => {
   const {
     barProps,
     barProps: { additionalLeftSpace },
@@ -49,7 +50,7 @@ const TaskGanttInner: React.FC<TaskGanttProps> = (props) => {
     onVerticalScrollbarScrollX,
     ganttTaskRootRef,
     onScrollGanttContentVertically: onScrollVertically,
-    colors
+    colors,
   } = props;
   const containerStyle: CSSProperties = {
     // In order to see the vertical scrollbar of the gantt content,
@@ -203,7 +204,7 @@ const TaskGanttInner: React.FC<TaskGanttProps> = (props) => {
             fontFamily={barProps.fontFamily}
             ref={ganttSVGRef}
             style={{
-              background: colors.oddTaskBackgroundColor
+              background: colors.oddTaskBackgroundColor,
             }}
           >
             <Grid {...gridProps} />

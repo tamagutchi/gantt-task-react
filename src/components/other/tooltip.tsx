@@ -1,12 +1,8 @@
-import React, {
-  ComponentType,
-} from "react";
+import React, { ComponentType } from "react";
 
 import type { Strategy } from "@floating-ui/dom";
 
-import type {
-  Task,
-} from "../../types/public-types";
+import type { Task } from "../../types/public-types";
 
 import styles from "./tooltip.module.css";
 
@@ -44,7 +40,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
         position: tooltipStrategy,
         top: tooltipY ?? 0,
         left: tooltipX ?? 0,
-        width: 'max-content',
+        width: "max-content",
       }}
       {...getFloatingProps()}
     >
@@ -64,10 +60,7 @@ export const StandardTooltipContent: React.FC<{
   };
 
   return (
-    <div
-      className={styles.tooltipDefaultContainer}
-      style={style}
-    >
+    <div className={styles.tooltipDefaultContainer} style={style}>
       <b style={{ fontSize: fontSize + 6 }}>{`${
         task.name
       }: ${task.start.getDate()}-${

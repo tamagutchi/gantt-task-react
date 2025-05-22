@@ -5,7 +5,7 @@ import addWeeks from "date-fns/addWeeks";
 import addYears from "date-fns/addYears";
 import addQuarters from "date-fns/addQuarters";
 
-import {ViewMode} from "../types/public-types";
+import { ViewMode } from "../types/public-types";
 
 export const getDateByOffset = (
   startDate: Date,

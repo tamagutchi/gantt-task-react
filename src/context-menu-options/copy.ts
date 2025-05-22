@@ -1,14 +1,7 @@
-import type {
-  ContextMenuOptionType,
-} from "../types/public-types";
+import type { ContextMenuOptionType } from "../types/public-types";
 
 export const copyOption: ContextMenuOptionType = {
-  action: ({
-    copySelectedTasks,
-    copyTask,
-    getParentTasks,
-    task,
-  }) => {
+  action: ({ copySelectedTasks, copyTask, getParentTasks, task }) => {
     const parentTasks = getParentTasks();
 
     if (parentTasks.includes(task)) {
@@ -17,5 +10,5 @@ export const copyOption: ContextMenuOptionType = {
       copyTask(task);
     }
   },
-  label: 'Copy',
+  label: "Copy",
 };

@@ -1,6 +1,4 @@
-import type {
-  ContextMenuOptionType,
-} from '../types/public-types';
+import type { ContextMenuOptionType } from "../types/public-types";
 
 export const pasteOption: ContextMenuOptionType = {
   action: ({
@@ -13,7 +11,7 @@ export const pasteOption: ContextMenuOptionType = {
     resetSelectedTasks: resetSelectedTasksAction,
     task,
   }) => {
-    if (task.type !== 'project' && task.type !== 'task') {
+    if (task.type !== "project" && task.type !== "task") {
       return;
     }
 
@@ -36,12 +34,8 @@ export const pasteOption: ContextMenuOptionType = {
     }
   },
 
-  checkIsAvailable: ({
-    checkHasCopyTasks,
-    checkHasCutTasks,
-    task,
-  }) => {
-    if (task.type === 'empty' || task.type === 'milestone') {
+  checkIsAvailable: ({ checkHasCopyTasks, checkHasCutTasks, task }) => {
+    if (task.type === "empty" || task.type === "milestone") {
       return false;
     }
 
@@ -52,5 +46,5 @@ export const pasteOption: ContextMenuOptionType = {
     return true;
   },
 
-  label: 'Paste',
+  label: "Paste",
 };

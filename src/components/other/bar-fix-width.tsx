@@ -1,15 +1,12 @@
-import React, {
-  memo,
-  useMemo,
-} from 'react';
+import React, { memo, useMemo } from "react";
 
-import { generateTrianglePoints } from '../../helpers/generate-triangle-points';
+import { generateTrianglePoints } from "../../helpers/generate-triangle-points";
 
-import styles from './bar-fix-width.module.css';
+import styles from "./bar-fix-width.module.css";
 
 export const fixWidthContainerClass = styles.hoverVisibleWrapper;
 
-type BarFixWidthProps = {   
+type BarFixWidthProps = {
   x: number;
   y: number;
   width: number;
@@ -28,10 +25,7 @@ const BarFixWidthInner: React.FC<BarFixWidthProps> = ({
   color,
   handleFixWidth,
 }) => {
-  const halfHeight = useMemo(
-    () => Math.round(height / 2),
-    [height],
-  );
+  const halfHeight = useMemo(() => Math.round(height / 2), [height]);
 
   const d = useMemo(() => {
     return `M ${x} ${y}
@@ -39,29 +33,17 @@ const BarFixWidthInner: React.FC<BarFixWidthProps> = ({
       M ${x} ${y + halfHeight}
       h ${isLeft ? -width : width}
     `;
-  }, [
-    x,
-    y,
-    width,
-    height,
-    halfHeight,
-    isLeft,
-  ]);
+  }, [x, y, width, height, halfHeight, isLeft]);
 
   const trianglePoints = useMemo(
-    () => generateTrianglePoints(
-      isLeft ? x - width : x + width,
-      y + halfHeight,
-      5,
-      isLeft,
-    ),
-    [
-      x,
-      y,
-      width,
-      halfHeight,
-      isLeft,
-    ],
+    () =>
+      generateTrianglePoints(
+        isLeft ? x - width : x + width,
+        y + halfHeight,
+        5,
+        isLeft
+      ),
+    [x, y, width, halfHeight, isLeft]
   );
 
   return (
@@ -71,10 +53,7 @@ const BarFixWidthInner: React.FC<BarFixWidthProps> = ({
       stroke={color}
       onMouseDown={handleFixWidth}
     >
-      <path
-        d={d}
-        className={styles.mainPath}
-      />
+      <path d={d} className={styles.mainPath} />
 
       <rect
         x={isLeft ? x - width - 2 : x - 2}

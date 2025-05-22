@@ -1,22 +1,16 @@
-import {
-  Task,
-  TaskMapByLevel,
-  TaskOrEmpty,
-} from "../types/public-types";
+import { Task, TaskMapByLevel, TaskOrEmpty } from "../types/public-types";
 
 export const checkIsDescendant = (
   maybeParent: Task,
   maybeDescendant: TaskOrEmpty,
-  tasksMap: TaskMapByLevel,
+  tasksMap: TaskMapByLevel
 ) => {
   /**
    * Avoid the circle of dependencies
    */
   const checkedTasks = new Set<string>();
 
-  const {
-    comparisonLevel = 1,
-  } = maybeDescendant;
+  const { comparisonLevel = 1 } = maybeDescendant;
 
   if ((maybeParent.comparisonLevel || 1) !== comparisonLevel) {
     return false;
@@ -30,10 +24,7 @@ export const checkIsDescendant = (
 
   let cur = maybeDescendant;
   while (true) {
-    const {
-      id,
-      parent,
-    } = cur;
+    const { id, parent } = cur;
 
     if (!parent) {
       return false;
@@ -44,7 +35,7 @@ export const checkIsDescendant = (
     }
 
     if (checkedTasks.has(id)) {
-      console.error('Warning: circle of dependencies');
+      console.error("Warning: circle of dependencies");
       return false;
     }
 

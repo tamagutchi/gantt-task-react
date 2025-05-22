@@ -1,12 +1,14 @@
-import { MapTaskToCoordinates, Task, TaskCoordinates } from "../types/public-types";
+import {
+  MapTaskToCoordinates,
+  Task,
+  TaskCoordinates,
+} from "../types/public-types";
 
 export const getMapTaskToCoordinatesOnLevel = (
   task: Task,
-  mapTaskToCoordinates: MapTaskToCoordinates,
+  mapTaskToCoordinates: MapTaskToCoordinates
 ) => {
-  const {
-    comparisonLevel = 1,
-  } = task;
+  const { comparisonLevel = 1 } = task;
 
   const mapTaskToCoordinatesOnLevel = mapTaskToCoordinates.get(comparisonLevel);
 
@@ -19,7 +21,7 @@ export const getMapTaskToCoordinatesOnLevel = (
 
 export const getCoordinatesOnLevel = (
   taskId: string,
-  mapTaskToCoordinatesOnLevel: Map<string, TaskCoordinates>,
+  mapTaskToCoordinatesOnLevel: Map<string, TaskCoordinates>
 ) => {
   const coordinates = mapTaskToCoordinatesOnLevel.get(taskId);
 
@@ -32,13 +34,14 @@ export const getCoordinatesOnLevel = (
 
 export const getTaskCoordinates = (
   task: Task,
-  mapTaskToCoordinates: MapTaskToCoordinates,
+  mapTaskToCoordinates: MapTaskToCoordinates
 ) => {
-  const {
-    id,
-  } = task;
+  const { id } = task;
 
-  const mapTaskToCoordinatesOnLevel = getMapTaskToCoordinatesOnLevel(task, mapTaskToCoordinates);
+  const mapTaskToCoordinatesOnLevel = getMapTaskToCoordinatesOnLevel(
+    task,
+    mapTaskToCoordinates
+  );
 
   return getCoordinatesOnLevel(id, mapTaskToCoordinatesOnLevel);
 };

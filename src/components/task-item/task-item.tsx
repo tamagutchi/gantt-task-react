@@ -29,7 +29,7 @@ import { BarFixWidth, fixWidthContainerClass } from "../other/bar-fix-width";
 import { BarRelationHandle } from "./bar/bar-relation-handle";
 
 export type TaskItemProps = {
-  children?: React.ReactNode
+  children?: React.ReactNode;
   getTaskGlobalIndexByRef: (task: Task) => number;
   hasChildren: boolean;
   hasDependencyWarning: boolean;
@@ -360,7 +360,10 @@ const TaskItemInner: React.FC<TaskItemProps> = props => {
     setTooltipTask(null, null);
   }, [setTooltipTask]);
 
-  let barLabelFill = (isTextInside || task.type == "milestone") ? styles.barLabelColor : styles.barLabelWhenOutsideColor;
+  let barLabelFill =
+    isTextInside || task.type == "milestone"
+      ? styles.barLabelColor
+      : styles.barLabelWhenOutsideColor;
   return (
     <g
       className={fixWidthContainerClass}

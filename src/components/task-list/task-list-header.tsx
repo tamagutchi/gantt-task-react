@@ -3,9 +3,14 @@ import React, { Fragment, memo } from "react";
 import { TaskListHeaderProps } from "../../types/public-types";
 
 import styles from "./task-list-header.module.css";
-import { TaskListHeaderActions, TaskListHeaderActionsProps } from "./TaskListHeaderActions";
+import {
+  TaskListHeaderActions,
+  TaskListHeaderActionsProps,
+} from "./TaskListHeaderActions";
 
-const TaskListHeaderDefaultInner: React.FC<TaskListHeaderProps & TaskListHeaderActionsProps> = (props) => {
+const TaskListHeaderDefaultInner: React.FC<
+  TaskListHeaderProps & TaskListHeaderActionsProps
+> = props => {
   const {
     headerHeight,
     fontFamily,
@@ -16,7 +21,7 @@ const TaskListHeaderDefaultInner: React.FC<TaskListHeaderProps & TaskListHeaderA
     onCollapseAll,
     onExpandFirstLevel,
     onExpandAll,
-    colors
+    colors,
   } = props;
   return (
     <div
@@ -35,7 +40,7 @@ const TaskListHeaderDefaultInner: React.FC<TaskListHeaderProps & TaskListHeaderA
                 className={styles.ganttTable_HeaderSeparator}
                 style={{
                   height: headerHeight * 0.5,
-                  marginTop: headerHeight * 0.2
+                  marginTop: headerHeight * 0.2,
                 }}
               />
             )}
@@ -45,19 +50,20 @@ const TaskListHeaderDefaultInner: React.FC<TaskListHeaderProps & TaskListHeaderA
               className={styles.ganttTable_HeaderItem}
               style={{
                 minWidth: width,
-                maxWidth: width
+                maxWidth: width,
               }}
             >
               <div className={styles.ganttTable_HeaderContent}>
-                <div className={styles.ganttTable_HeaderTitle} >
-                  {title}
-                </div>
+                <div className={styles.ganttTable_HeaderTitle}>{title}</div>
 
-                {title === "Name" && <TaskListHeaderActions
-                  onCollapseAll={onCollapseAll}
-                  onExpandFirstLevel={onExpandFirstLevel}
-                  onExpandAll={onExpandAll}
-                  colors={colors} />}
+                {title === "Name" && (
+                  <TaskListHeaderActions
+                    onCollapseAll={onCollapseAll}
+                    onExpandFirstLevel={onExpandFirstLevel}
+                    onExpandAll={onExpandAll}
+                    colors={colors}
+                  />
+                )}
               </div>
 
               {canResizeColumns && canResize !== false && (

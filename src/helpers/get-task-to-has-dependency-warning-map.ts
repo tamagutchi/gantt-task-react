@@ -14,11 +14,14 @@ const checkTaskHasWarning = (dependencyMarginsForTask: Map<string, number>) => {
 };
 
 export const getTaskToHasDependencyWarningMap = (
-  dependencyMarginsMap: DependencyMargins,
+  dependencyMarginsMap: DependencyMargins
 ): TaskToHasDependencyWarningMap => {
   const res = new Map<number, Set<string>>();
 
-  for (const [comparisonLevel, marginsByLevel] of dependencyMarginsMap.entries()) {
+  for (const [
+    comparisonLevel,
+    marginsByLevel,
+  ] of dependencyMarginsMap.entries()) {
     const resAtLevel = new Set<string>();
 
     for (const [taskId, dependencyMarginsForTask] of marginsByLevel.entries()) {
