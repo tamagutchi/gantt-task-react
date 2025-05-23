@@ -216,7 +216,6 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
       if (task.type === "empty") {
         const levelY = Math.floor(index / comparisonLevels) * fullRowHeight;
         const isHovered = hoveredEmptyTask?.taskId === taskId;
-        console.log(hoveredEmptyTask, "isHovered");
 
         tasksRes.push(
           <svg
