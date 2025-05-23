@@ -1807,11 +1807,24 @@ export const Gantt: React.FC<GanttProps> = ({
         (changeInProgress?.additionalLeftSpace || 0) -
         distances.columnWidth;
 
-      // Calculate which time column was clicked
-      const columnIndex = Math.floor(adjustedX / distances.columnWidth);
+      // Calculate the exact position within the time period
+      const exactColumnPosition = adjustedX / distances.columnWidth;
+      const columnIndex = Math.floor(exactColumnPosition);
+      const fractionalPosition = exactColumnPosition - columnIndex; // 0 to 1 within the column
 
-      // Convert column index to actual date
-      const clickDate = getDateByOffset(startDate, columnIndex, viewMode);
+      // Get the start date of the time period
+      const periodStartDate = getDateByOffset(startDate, columnIndex, viewMode);
+      const periodEndDate = getDateByOffset(
+        startDate,
+        columnIndex + 1,
+        viewMode
+      );
+
+      // Calculate the exact time within the period
+      const periodDuration =
+        periodEndDate.getTime() - periodStartDate.getTime();
+      const exactTimeOffset = periodDuration * fractionalPosition;
+      const clickDate = new Date(periodStartDate.getTime() + exactTimeOffset);
 
       // Create appropriate task duration based on current view mode
       let taskStartDate: Date;
