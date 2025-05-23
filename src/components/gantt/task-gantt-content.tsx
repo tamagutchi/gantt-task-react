@@ -82,6 +82,11 @@ export type TaskGanttContentProps = {
   taskHalfHeight: number;
   ContextualPalette?: React.FC<TaskContextualPaletteProps>;
   TaskDependencyContextualPalette?: React.FC<TaskDependencyContextualPaletteProps>;
+  onEmptyTaskClick?: (
+    event: React.MouseEvent<SVGRectElement>,
+    emptyTask: TaskOrEmpty,
+    svgElement: SVGSVGElement | null
+  ) => void;
 };
 
 export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
@@ -124,12 +129,23 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
   taskHeight,
   taskHalfHeight,
   visibleTasksMirror,
+  onEmptyTaskClick,
 }) => {
   const [hoveredEmptyTask, setHoveredEmptyTask] = useState<{
     taskId: string;
     x: number;
     y: number;
   } | null>(null);
+
+  const handleEmptyTaskPlaceholderClick = useCallback(
+    (event: React.MouseEvent<SVGRectElement>, emptyTask: TaskOrEmpty) => {
+      if (!onEmptyTaskClick) return;
+
+      const svgElement = event.currentTarget.ownerSVGElement;
+      onEmptyTaskClick(event, emptyTask, svgElement);
+    },
+    [onEmptyTaskClick]
+  );
 
   // Add this helper function to convert screen coordinates to SVG coordinates
   const getSVGCoordinates = useCallback(
@@ -242,9 +258,8 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
               onMouseLeave={() => {
                 setHoveredEmptyTask(null);
               }}
-              onClick={() => {
-                // Optional: Handle click to edit task
-                // handleEditTask?.(task);
+              onClick={event => {
+                handleEmptyTaskPlaceholderClick(event, task);
               }}
               style={{ cursor: "pointer" }}
             />
@@ -259,7 +274,10 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
                 <rect
                   x={Math.max(
                     10,
-                    Math.min(hoveredEmptyTask.x - 100, window.innerWidth - 220)
+                    Math.min(
+                      hoveredEmptyTask.x - distances.columnWidth,
+                      window.innerWidth - 220
+                    )
                   )} // Keep within bounds
                   y={taskYOffset}
                   width={distances.columnWidth * 2}
@@ -275,13 +293,16 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
                 {/* Placeholder text */}
                 <text
                   x={Math.max(
-                    60,
-                    Math.min(hoveredEmptyTask.x - 40, window.innerWidth - 120)
-                  )} // Center text in rectangle
+                    10 + distances.columnWidth,
+                    Math.min(
+                      hoveredEmptyTask.x,
+                      window.innerWidth - 220 + distances.columnWidth
+                    )
+                  )}
                   y={taskYOffset + taskHeight / 2}
                   fill={colorStyles.barLabelColor}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
+                  textAnchor="middle" // Horizontal centering
+                  dominantBaseline="middle" // Vertical centering
                   fontSize="12px"
                   opacity={0.9}
                   style={{

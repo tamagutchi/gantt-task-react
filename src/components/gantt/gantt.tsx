@@ -1785,6 +1785,178 @@ export const Gantt: React.FC<GanttProps> = ({
     }
   };
 
+  const handleEmptyTaskClick = useCallback(
+    (
+      event: React.MouseEvent<SVGRectElement>,
+      emptyTask: TaskOrEmpty,
+      svgElement: SVGSVGElement | null
+    ) => {
+      if (!svgElement) return;
+
+      // Convert screen coordinates to SVG coordinates
+      const point = svgElement.createSVGPoint();
+      point.x = event.clientX;
+      point.y = event.clientY;
+      const svgCoords = point.matrixTransform(
+        svgElement.getScreenCTM()?.inverse()
+      );
+
+      // Adjust for additional left space from the gantt layout
+      const adjustedX =
+        svgCoords.x -
+        (changeInProgress?.additionalLeftSpace || 0) -
+        distances.columnWidth;
+
+      // Calculate which time column was clicked
+      const columnIndex = Math.floor(adjustedX / distances.columnWidth);
+
+      // Convert column index to actual date
+      const clickDate = getDateByOffset(startDate, columnIndex, viewMode);
+
+      // Create appropriate task duration based on current view mode
+      let taskStartDate: Date;
+      let taskEndDate: Date;
+
+      switch (viewMode) {
+        case ViewMode.Hour:
+          taskStartDate = new Date(clickDate);
+          taskEndDate = new Date(clickDate.getTime() + 2 * 60 * 60 * 1000); // 1 hour duration
+          break;
+
+        case ViewMode.QuarterDay:
+          taskStartDate = new Date(clickDate);
+          taskEndDate = new Date(clickDate.getTime() + 2 * 6 * 60 * 60 * 1000); // 6 hours duration
+          break;
+
+        case ViewMode.HalfDay:
+          taskStartDate = new Date(clickDate);
+          taskEndDate = new Date(clickDate.getTime() + 2 * 12 * 60 * 60 * 1000); // 12 hours duration
+          break;
+
+        case ViewMode.Day:
+          taskStartDate = new Date(clickDate);
+          // taskStartDate.setHours(0, 0, 0, 0); // Start of day
+          taskEndDate = new Date(taskStartDate);
+          taskEndDate.setDate(taskEndDate.getDate() + 2); // Next day
+          break;
+
+        case ViewMode.TwoDays:
+          taskStartDate = new Date(clickDate);
+          taskStartDate.setHours(0, 0, 0, 0);
+          taskEndDate = new Date(taskStartDate);
+          taskEndDate.setDate(taskEndDate.getDate() + 4); // 2 days duration
+          break;
+
+        case ViewMode.Week:
+          taskStartDate = new Date(clickDate);
+          taskStartDate.setHours(0, 0, 0, 0);
+          taskEndDate = new Date(taskStartDate);
+          taskEndDate.setDate(taskEndDate.getDate() + 14); // 1 week duration
+          break;
+
+        case ViewMode.Month:
+          taskStartDate = new Date(clickDate);
+          taskStartDate.setHours(0, 0, 0, 0);
+          taskEndDate = new Date(taskStartDate);
+          taskEndDate.setMonth(taskEndDate.getMonth() + 2); // 1 month duration
+          break;
+
+        case ViewMode.QuarterYear:
+          taskStartDate = new Date(clickDate);
+          taskStartDate.setHours(0, 0, 0, 0);
+          taskEndDate = new Date(taskStartDate);
+          taskEndDate.setMonth(taskEndDate.getMonth() + 6); // 3 months duration
+          break;
+
+        case ViewMode.Year:
+          taskStartDate = new Date(clickDate);
+          taskStartDate.setHours(0, 0, 0, 0);
+          taskEndDate = new Date(taskStartDate);
+          taskEndDate.setFullYear(taskEndDate.getFullYear() + 2); // 1 year duration
+          break;
+
+        default:
+          // Fallback to 1 day duration
+          taskStartDate = new Date(clickDate);
+          taskStartDate.setHours(0, 0, 0, 0);
+          taskEndDate = new Date(taskStartDate);
+          taskEndDate.setDate(taskEndDate.getDate() + 2);
+      }
+
+      // Apply date rounding if needed (using existing gantt logic)
+      taskStartDate = roundDate(taskStartDate, "start", "startOfTask");
+      taskEndDate = roundDate(taskEndDate, "end", "endOfTask");
+
+      // Apply working days adjustment if enabled
+      if (isAdjustToWorkingDates) {
+        const adjustedTask = adjustTaskToWorkingDates({
+          action: "move",
+          changedTask: {
+            ...emptyTask,
+            start: taskStartDate,
+            end: taskEndDate,
+          } as Task,
+          originalTask: {
+            ...emptyTask,
+            start: taskStartDate,
+            end: taskEndDate,
+          } as Task,
+          roundDate,
+        });
+
+        taskStartDate = adjustedTask.start;
+        taskEndDate = adjustedTask.end;
+      }
+
+      // Convert empty task to a regular task
+      const newTask: Task = {
+        ...emptyTask,
+        type: "task", // Convert from empty to task
+        start: taskStartDate,
+        end: taskEndDate,
+        progress: 0, // Default progress
+      } as Task;
+
+      // Find the task index for updating
+      const { id, comparisonLevel = 1 } = emptyTask;
+      const indexesOnLevel = mapTaskToGlobalIndex.get(comparisonLevel);
+
+      if (!indexesOnLevel) {
+        console.error(`Indexes are not found for level ${comparisonLevel}`);
+        return;
+      }
+
+      const taskIndex = indexesOnLevel.get(id);
+
+      if (typeof taskIndex !== "number") {
+        console.error(`Index is not found for task ${id}`);
+        return;
+      }
+
+      // Update the tasks array using existing change mechanism
+      if (onChangeTasks) {
+        const nextTasks = [...tasks];
+        nextTasks[taskIndex] = newTask;
+
+        onChangeTasks(nextTasks, {
+          type: "edit_task",
+        });
+      }
+    },
+    [
+      distances.columnWidth,
+      startDate,
+      viewMode,
+      roundDate,
+      isAdjustToWorkingDates,
+      adjustTaskToWorkingDates,
+      changeInProgress?.additionalLeftSpace,
+      mapTaskToGlobalIndex,
+      onChangeTasks,
+      tasks,
+    ]
+  );
+
   const barProps: TaskGanttContentProps = useMemo(
     () => ({
       authorizedRelations,
@@ -1832,6 +2004,7 @@ export const Gantt: React.FC<GanttProps> = ({
       visibleTasksMirror,
       ContextualPalette,
       TaskDependencyContextualPalette,
+      onEmptyTaskClick: handleEmptyTaskClick,
     }),
     [
       additionalLeftSpace,
@@ -1881,6 +2054,7 @@ export const Gantt: React.FC<GanttProps> = ({
       timeStep,
       visibleTasks,
       visibleTasksMirror,
+      handleEmptyTaskClick,
     ]
   );
 

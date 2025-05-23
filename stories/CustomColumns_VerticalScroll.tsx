@@ -211,6 +211,8 @@ export const CustomColumns_VerticalScroll: React.FC = props => {
           onClick={handleClick}
           tasks={tasks}
           onResizeColumn={onResizeColumn}
+          roundDate={date => date}
+          isAdjustToWorkingDates={false}
         />
       </div>
     </>
