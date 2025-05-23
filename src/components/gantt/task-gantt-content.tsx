@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import type { MouseEvent, ReactNode } from "react";
 
 import {
@@ -125,6 +125,29 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
   taskHalfHeight,
   visibleTasksMirror,
 }) => {
+  const [hoveredEmptyTask, setHoveredEmptyTask] = useState<{
+    taskId: string;
+    x: number;
+    y: number;
+  } | null>(null);
+
+  // Add this helper function to convert screen coordinates to SVG coordinates
+  const getSVGCoordinates = useCallback(
+    (
+      event: React.MouseEvent<SVGRectElement>,
+      svgElement: SVGSVGElement | null
+    ) => {
+      if (!svgElement) return { x: 0, y: 0 };
+
+      const point = svgElement.createSVGPoint();
+      point.x = event.clientX;
+      point.y = event.clientY;
+
+      const svgP = point.matrixTransform(svgElement.getScreenCTM()?.inverse());
+      return { x: svgP.x, y: svgP.y };
+    },
+    []
+  );
   const [renderedTasks, renderedArrows, renderedSelectedTasks] = useMemo(() => {
     if (!renderedRowIndexes) {
       return [null, null, null];
@@ -175,7 +198,104 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
       }
 
       if (task.type === "empty") {
-        continue;
+        const levelY = Math.floor(index / comparisonLevels) * fullRowHeight;
+        const isHovered = hoveredEmptyTask?.taskId === taskId;
+        console.log(hoveredEmptyTask, "isHovered");
+
+        tasksRes.push(
+          <svg
+            id={task.id}
+            className="EmptyTaskClassName"
+            x={additionalLeftSpace || 0}
+            y={levelY}
+            width="100%"
+            height={fullRowHeight}
+            key={`empty_${comparisonLevel}_${task.id}`}
+          >
+            {/* Invisible hover area that tracks mouse movement */}
+            <rect
+              x={0}
+              y={taskYOffset}
+              width="100%"
+              height={taskHeight}
+              fill="transparent"
+              className="empty-task-hover-area"
+              onMouseEnter={() => {
+                // Initialize hover state
+                setHoveredEmptyTask({
+                  taskId,
+                  x: 100, // Default position
+                  y: taskYOffset + taskHeight / 2,
+                });
+              }}
+              onMouseMove={event => {
+                // Get the parent SVG element
+                const svgElement = event.currentTarget.ownerSVGElement;
+                const coords = getSVGCoordinates(event, svgElement);
+
+                setHoveredEmptyTask({
+                  taskId,
+                  x: coords.x - (additionalLeftSpace || 0), // Adjust for left space
+                  y: taskYOffset + taskHeight / 2, // Keep Y centered on task row
+                });
+              }}
+              onMouseLeave={() => {
+                setHoveredEmptyTask(null);
+              }}
+              onClick={() => {
+                // Optional: Handle click to edit task
+                // handleEditTask?.(task);
+              }}
+              style={{ cursor: "pointer" }}
+            />
+
+            {/* Placeholder that follows cursor */}
+            {isHovered && hoveredEmptyTask && (
+              <g
+                className="empty-task-cursor-placeholder"
+                style={{ pointerEvents: "none" }}
+              >
+                {/* Placeholder rectangle */}
+                <rect
+                  x={Math.max(
+                    10,
+                    Math.min(hoveredEmptyTask.x - 100, window.innerWidth - 220)
+                  )} // Keep within bounds
+                  y={taskYOffset}
+                  width={distances.columnWidth * 2}
+                  height={taskHeight}
+                  fill={colorStyles.barBackgroundColor}
+                  stroke={colorStyles.arrowColor}
+                  strokeWidth={1}
+                  rx={distances.barCornerRadius}
+                  ry={distances.barCornerRadius}
+                  opacity={0.7}
+                />
+
+                {/* Placeholder text */}
+                <text
+                  x={Math.max(
+                    60,
+                    Math.min(hoveredEmptyTask.x - 40, window.innerWidth - 120)
+                  )} // Center text in rectangle
+                  y={taskYOffset + taskHeight / 2}
+                  fill={colorStyles.barLabelColor}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fontSize="12px"
+                  opacity={0.9}
+                  style={{
+                    fontWeight: "bold",
+                    pointerEvents: "none",
+                  }}
+                >
+                  Schedule task
+                </text>
+              </g>
+            )}
+          </svg>
+        );
+        continue; // Skip further processing for empty tasks
       }
 
       const key = `${comparisonLevel}_${task.id}`;
@@ -446,6 +566,7 @@ export const TaskGanttContent: React.FC<TaskGanttContentProps> = ({
     selectTaskOnMouseDown,
     selectedIdsMirror,
     visibleTasksMirror,
+    hoveredEmptyTask,
   ]);
 
   return (

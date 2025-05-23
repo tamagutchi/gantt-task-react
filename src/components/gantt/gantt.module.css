@@ -1,5 +1,5 @@
 .ganttTaskRoot {
-  display:flex;
+  display: flex;
   flex-direction: column;
   overflow-x: scroll;
   overflow-y: hidden;
@@ -8,7 +8,7 @@
   padding: 0;
 }
 /* Only chrome otherwise the firefox scrollbar has no edge*/
-@media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+@media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
   .ganttTaskRoot {
     scrollbar-width: thin;
   }
@@ -45,14 +45,14 @@
   overflow-y: auto;
 }
 /* Only chrome otherwise the firefox scrollbar has no edges*/
-@media screen and (-webkit-min-device-pixel-ratio:0) and (min-resolution:.001dpcm) {
+@media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
   .ganttTaskContent {
     scrollbar-width: thin;
   }
 }
 
 .wrapper {
-  display:grid;
+  display: grid;
   overflow-x: hidden;
   overflow-y: hidden;
   padding: 0;
@@ -60,4 +60,43 @@
   list-style: none;
   outline: none;
   position: relative;
+}
+
+/* Add this to your CSS file or create a new one */
+.empty-task-placeholder-group {
+  cursor: pointer;
+}
+
+.empty-task-placeholder,
+.empty-task-placeholder-text {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.empty-task-placeholder-group:hover .empty-task-placeholder {
+  opacity: 0.6;
+}
+
+.empty-task-placeholder-group:hover .empty-task-placeholder-text {
+  opacity: 0.8;
+}
+
+/* Optional: Add a subtle animation */
+.empty-task-placeholder {
+  transform-origin: center;
+}
+
+.empty-task-placeholder-group:hover .empty-task-placeholder {
+  animation: placeholderPulse 2s ease-in-out infinite;
+}
+
+@keyframes placeholderPulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.3;
+  }
 }
