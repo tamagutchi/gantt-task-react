@@ -1548,6 +1548,10 @@ export const Gantt: React.FC<GanttProps> = ({
 
         onChangeTasks(nextTasks, {
           type: "relation_change",
+          payload: {
+            taskFrom,
+            taskTo,
+          },
         });
       }
     },
@@ -1953,6 +1957,9 @@ export const Gantt: React.FC<GanttProps> = ({
 
         onChangeTasks(nextTasks, {
           type: "edit_task",
+          payload: {
+            newTask,
+          },
         });
       }
     },

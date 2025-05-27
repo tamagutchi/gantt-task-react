@@ -312,6 +312,9 @@ export type OnChangeTasksAction =
     }
   | {
       type: "edit_task";
+      payload?: {
+        newTask: Task;
+      };
     }
   | {
       type: "fix_dependency_position";
@@ -336,6 +339,10 @@ export type OnChangeTasksAction =
     }
   | {
       type: "relation_change";
+      payload?: {
+        taskFrom: Task;
+        taskTo: Task;
+      };
     }
   | {
       type: "expandState_change";
