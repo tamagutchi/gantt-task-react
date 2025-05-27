@@ -1551,6 +1551,7 @@ export const Gantt: React.FC<GanttProps> = ({
           payload: {
             taskFrom,
             taskTo,
+            newDependency,
           },
         });
       }

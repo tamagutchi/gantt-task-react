@@ -342,6 +342,7 @@ export type OnChangeTasksAction =
       payload?: {
         taskFrom: Task;
         taskTo: Task;
+        newDependency: Dependency;
       };
     }
   | {
