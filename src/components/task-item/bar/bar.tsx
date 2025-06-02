@@ -70,7 +70,7 @@ export const Bar: React.FC<
   //   taskYOffset,
   //   taskHeight
   // );
-  const handleHeight = taskHeight - 4;
+  const handleHeight = taskHeight - 10;
 
   let barDisplay = null;
   if (task.type === "project") {
@@ -129,7 +129,7 @@ export const Bar: React.FC<
           startMove={startMoveStartOfTask}
           width={handleWidth}
           x={x1 + 12}
-          y={taskYOffset + 2}
+          y={taskYOffset + 5}
         />
       )}
 
@@ -142,7 +142,7 @@ export const Bar: React.FC<
           startMove={startMoveEndOfTask}
           width={handleWidth}
           x={x2 - handleWidth - 12}
-          y={taskYOffset + 2}
+          y={taskYOffset + 5}
         />
       )}
 
