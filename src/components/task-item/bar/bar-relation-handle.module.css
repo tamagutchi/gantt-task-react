@@ -1,14 +1,17 @@
-.barRelationHandleWrapper:hover .barRelationHandle, .barRelationHandle.barRelationHandle_drawMode {
+.barRelationHandleWrapper:hover .barRelationHandle,
+.barRelationHandle.barRelationHandle_drawMode {
   opacity: 1;
 }
 
 .barRelationHandle {
-  fill: #ddd;
-  stroke: #333;
+  fill: #b2b2b2;
+  stroke: #fff;
+  stroke-width: 2px;
   cursor: pointer;
   opacity: 0;
+  filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.25));
 }
 
 .barRelationHandle:hover {
-  fill: #a2a2a2;
+  fill: #545454;
 }

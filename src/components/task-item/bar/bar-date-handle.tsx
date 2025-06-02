@@ -28,8 +28,8 @@ export const BarDateHandle: React.FC<BarDateHandleProps> = ({
       width={width}
       height={height}
       className={styles.barHandle}
-      ry={barCornerRadius}
-      rx={barCornerRadius}
+      ry={2}
+      rx={2}
       onMouseDown={e => {
         startMove(e.clientX);
       }}

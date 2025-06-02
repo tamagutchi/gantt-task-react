@@ -36,37 +36,37 @@ export const BarDisplay: React.FC<BarDisplayProps> = ({
   x,
   y,
 }) => {
-  const processColor = useMemo(() => {
-    if (isCritical) {
-      if (hasChildren) {
-        if (isSelected) {
-          return styles.groupProgressSelectedCriticalColor;
-        }
+  // const processColor = useMemo(() => {
+  //   if (isCritical) {
+  //     if (hasChildren) {
+  //       if (isSelected) {
+  //         return styles.groupProgressSelectedCriticalColor;
+  //       }
 
-        return styles.groupProgressCriticalColor;
-      }
+  //       return styles.groupProgressCriticalColor;
+  //     }
 
-      if (isSelected) {
-        return styles.barProgressSelectedCriticalColor;
-      }
+  //     if (isSelected) {
+  //       return styles.barProgressSelectedCriticalColor;
+  //     }
 
-      return styles.barProgressCriticalColor;
-    }
+  //     return styles.barProgressCriticalColor;
+  //   }
 
-    if (hasChildren) {
-      if (isSelected) {
-        return styles.groupProgressSelectedColor;
-      }
+  //   if (hasChildren) {
+  //     if (isSelected) {
+  //       return styles.groupProgressSelectedColor;
+  //     }
 
-      return styles.groupProgressColor;
-    }
+  //     return styles.groupProgressColor;
+  //   }
 
-    if (isSelected) {
-      return styles.barProgressSelectedColor;
-    }
+  //   if (isSelected) {
+  //     return styles.barProgressSelectedColor;
+  //   }
 
-    return styles.barProgressColor;
-  }, [isSelected, isCritical, hasChildren, styles]);
+  //   return styles.barProgressColor;
+  // }, [isSelected, isCritical, hasChildren, styles]);
 
   const barColor = useMemo(() => {
     if (isCritical) {
@@ -124,7 +124,7 @@ export const BarDisplay: React.FC<BarDisplayProps> = ({
         fill={barColor}
         className={style.barBackground}
       />
-      <rect
+      {/* <rect
         x={progressX}
         width={progressWidth}
         y={y}
@@ -132,7 +132,7 @@ export const BarDisplay: React.FC<BarDisplayProps> = ({
         ry={barCornerRadius}
         rx={barCornerRadius}
         fill={processColor}
-      />
+      /> */}
     </g>
   );
 };

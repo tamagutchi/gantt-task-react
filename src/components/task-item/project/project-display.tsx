@@ -54,38 +54,38 @@ export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
     return colorStyles.projectBackgroundColor;
   }, [isSelected, isCritical, colorStyles]);
 
-  const processColor = useMemo(() => {
-    if (isCritical) {
-      if (isSelected) {
-        return colorStyles.projectProgressSelectedCriticalColor;
-      }
+  // const processColor = useMemo(() => {
+  //   if (isCritical) {
+  //     if (isSelected) {
+  //       return colorStyles.projectProgressSelectedCriticalColor;
+  //     }
 
-      return colorStyles.projectProgressCriticalColor;
-    }
+  //     return colorStyles.projectProgressCriticalColor;
+  //   }
 
-    if (isSelected) {
-      return colorStyles.projectProgressSelectedColor;
-    }
+  //   if (isSelected) {
+  //     return colorStyles.projectProgressSelectedColor;
+  //   }
 
-    return colorStyles.projectProgressColor;
-  }, [isSelected, isCritical, colorStyles]);
+  //   return colorStyles.projectProgressColor;
+  // }, [isSelected, isCritical, colorStyles]);
 
-  const projectLeftTriangle = [
-    x1,
-    taskYOffset + taskHeight / 2 - 1,
-    x1,
-    taskYOffset + taskHeight,
-    x1 + 15,
-    taskYOffset + taskHeight / 2 - 1,
-  ].join(",");
-  const projectRightTriangle = [
-    x2,
-    taskYOffset + taskHeight / 2 - 1,
-    x2,
-    taskYOffset + taskHeight,
-    x2 - 15,
-    taskYOffset + taskHeight / 2 - 1,
-  ].join(",");
+  // const projectLeftTriangle = [
+  //   x1,
+  //   taskYOffset + taskHeight / 2 - 1,
+  //   x1,
+  //   taskYOffset + taskHeight,
+  //   x1 + 15,
+  //   taskYOffset + taskHeight / 2 - 1,
+  // ].join(",");
+  // const projectRightTriangle = [
+  //   x2,
+  //   taskYOffset + taskHeight / 2 - 1,
+  //   x2,
+  //   taskYOffset + taskHeight,
+  //   x2 - 15,
+  //   taskYOffset + taskHeight / 2 - 1,
+  // ].join(",");
 
   return (
     <g
@@ -113,6 +113,8 @@ export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
         ry={barCornerRadius}
         className={styles.projectBackground}
       />
+      {/* 
+      hide the progress bar for now
       <rect
         x={progressX}
         width={progressWidth}
@@ -141,7 +143,7 @@ export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
         className={styles.projectTop}
         points={projectRightTriangle}
         fill={barColor}
-      />
+      /> */}
     </g>
   );
 };

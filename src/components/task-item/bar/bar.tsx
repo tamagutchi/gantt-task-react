@@ -1,9 +1,9 @@
 import React, { useCallback } from "react";
 
-import { getProgressPoint } from "../../../helpers/bar-helper";
+// import { getProgressPoint } from "../../../helpers/bar-helper";
 import { BarDisplay } from "./bar-display";
 import { BarDateHandle } from "./bar-date-handle";
-import { BarProgressHandle } from "./bar-progress-handle";
+// import { BarProgressHandle } from "./bar-progress-handle";
 import type { TaskItemProps } from "../task-item";
 
 import styles from "./bar.module.css";
@@ -58,19 +58,19 @@ export const Bar: React.FC<
     [onTaskEventStart]
   );
 
-  const startMoveProgress = useCallback(
-    (clientX: number) => {
-      onTaskEventStart("progress", clientX);
-    },
-    [onTaskEventStart]
-  );
+  // const startMoveProgress = useCallback(
+  //   (clientX: number) => {
+  //     onTaskEventStart("progress", clientX);
+  //   },
+  //   [onTaskEventStart]
+  // );
 
-  const progressPoint = getProgressPoint(
-    +!rtl * progressWidth + progressX,
-    taskYOffset,
-    taskHeight
-  );
-  const handleHeight = taskHeight - 2;
+  // const progressPoint = getProgressPoint(
+  //   +!rtl * progressWidth + progressX,
+  //   taskYOffset,
+  //   taskHeight
+  // );
+  const handleHeight = taskHeight - 4;
 
   let barDisplay = null;
   if (task.type === "project") {
@@ -128,8 +128,8 @@ export const Bar: React.FC<
           height={handleHeight}
           startMove={startMoveStartOfTask}
           width={handleWidth}
-          x={x1 + 1}
-          y={taskYOffset + 1}
+          x={x1 + 12}
+          y={taskYOffset + 2}
         />
       )}
 
@@ -141,20 +141,20 @@ export const Bar: React.FC<
           height={handleHeight}
           startMove={startMoveEndOfTask}
           width={handleWidth}
-          x={x2 - handleWidth - 1}
-          y={taskYOffset + 1}
+          x={x2 - handleWidth - 12}
+          y={taskYOffset + 2}
         />
       )}
 
       {relationhandles}
 
-      {isProgressChangeable && (
+      {/* {isProgressChangeable && (
         <BarProgressHandle
           taskName={task.name}
           progressPoint={progressPoint}
           startMoveProgress={startMoveProgress}
         />
-      )}
+      )} */}
     </g>
   );
 };
