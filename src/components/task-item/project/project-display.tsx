@@ -25,17 +25,17 @@ type ProjectDisplayProps = {
 export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
   barCornerRadius,
   taskName,
-  taskHalfHeight,
+  // taskHalfHeight,
   taskHeight,
   isSelected,
   isCritical,
   colorStyles,
-  progressWidth,
-  progressX,
+  // progressWidth,
+  // progressX,
   taskYOffset,
   width,
   x1,
-  x2,
+  // x2,
   startMoveFullTask,
 }) => {
   const barColor = useMemo(() => {

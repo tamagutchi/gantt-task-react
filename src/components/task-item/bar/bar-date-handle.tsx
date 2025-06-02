@@ -13,7 +13,7 @@ type BarDateHandleProps = {
 
 export const BarDateHandle: React.FC<BarDateHandleProps> = ({
   dataTestid,
-  barCornerRadius,
+  // barCornerRadius,
   height,
   startMove,
   width,
