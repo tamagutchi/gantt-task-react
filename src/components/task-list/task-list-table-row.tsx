@@ -274,7 +274,7 @@ const TaskListTableRowInner: React.FC<TaskListTableRowProps> = ({
 
   const canDropInside = (): boolean => {
     let canDropInside = false;
-    if (task.type !== "empty" && task.type !== "milestone") {
+    if (task.type === "project") {
       if (draggedTask) {
         if (!isDraggedTaskAncestorOfDropTarget(draggedTask)) {
           canDropInside =
