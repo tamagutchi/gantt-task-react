@@ -1,6 +1,8 @@
 .barLabel {
   text-anchor: middle;
   font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
   dominant-baseline: central;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -13,6 +15,8 @@
 .barLabelOutside {
   text-anchor: start;
   font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
