@@ -327,9 +327,17 @@ export type OnChangeTasksAction =
     }
   | {
       type: "move_task_before";
+      payload: {
+        target: TaskOrEmpty;
+        taskForMove: TaskOrEmpty;
+      };
     }
   | {
       type: "move_task_after";
+      payload: {
+        target: TaskOrEmpty;
+        taskForMove: TaskOrEmpty;
+      };
     }
   | {
       type: "move_task_inside";

@@ -1221,6 +1221,10 @@ export const Gantt: React.FC<GanttProps> = ({
 
         onChangeTasks(withSuggestions, {
           type: "move_task_after",
+          payload: {
+            target,
+            taskForMove,
+          },
         });
       }
     },
@@ -1293,6 +1297,10 @@ export const Gantt: React.FC<GanttProps> = ({
 
         onChangeTasks(withSuggestions, {
           type: "move_task_before",
+          payload: {
+            target,
+            taskForMove,
+          },
         });
       }
     },
