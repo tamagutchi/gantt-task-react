@@ -59,7 +59,9 @@ export const TitleColumn: React.FC<ColumnProps> = props => {
     >
       <div
         className={`${styles.taskListExpander} ${
-          !hasChildren ? styles.taskListEmptyExpander : ""
+          !hasChildren
+            ? `${styles.taskListEmptyExpander} bf-task-list-empty-expander`
+            : ""
         }`}
         onClick={onClick}
         style={{
