@@ -53,8 +53,14 @@ const TaskListHeaderDefaultInner: React.FC<
                 maxWidth: width,
               }}
             >
-              <div className={styles.ganttTable_HeaderContent}>
-                <div className={styles.ganttTable_HeaderTitle}>{title}</div>
+              <div
+                className={`${styles.ganttTable_HeaderContent} bf-task-list-header-content`}
+              >
+                <div
+                  className={`${styles.ganttTable_HeaderTitle} bf-task-list-header-title`}
+                >
+                  {title}
+                </div>
 
                 {title === "Name" && (
                   <TaskListHeaderActions

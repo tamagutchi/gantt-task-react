@@ -51,7 +51,7 @@ export const TitleColumn: React.FC<ColumnProps> = props => {
   return (
     <div
       data-testid={`title-table-cell-${name}`}
-      className={`${styles.taskListNameWrapper}`}
+      className={`${styles.taskListNameWrapper} bf-task-list-name-wrapper-depth-${depth}`}
       style={{
         paddingLeft: depth * nestedTaskNameOffset,
       }}
@@ -72,7 +72,7 @@ export const TitleColumn: React.FC<ColumnProps> = props => {
         style={{
           color: colors.barLabelColor,
         }}
-        className={styles.taskName}
+        className={`${styles.taskName} bf-task-name`}
       >
         {isShowTaskNumbers && <b>{indexStr} </b>}
 
